@@ -7,11 +7,11 @@ module.exports.up = (queryInterface,DataTypes) => {
         },
         school_name: {
             allowNull: false,
-            type: DataTypes.String
+            type: DataTypes.STRING
         },
         school_address: {
             allowNull: false,
-            type: DataTypes.String
+            type: DataTypes.STRING
         },
         manager: {
             allowNull: false,

@@ -14,14 +14,22 @@ const typeDefs = gql`
         email: String!
         username: String!
         type: String!
-        address: Address!
-        school: School
+        address: UserAddress!
+        school: UserSchool
     }
 
     type UserAddress {
         street: String!
         buildingNumber: String!
         apartmentNumber: String!
+        country: String!
+        city: String!
+    }
+
+    type UserAddress {
+        street: String!
+        buildingNumber: String!
+        apartmentNumber: String
         country: String!
         city: String!
     }
@@ -45,8 +53,19 @@ const typeDefs = gql`
         address: Address!
     }
 
-    input teacher {
-        schoolID: UUID
+    type UserType {
+        firstName: String!
+        lastName: String!
+        phone: String!
+        password: String!
+        email: String!
+        username: String!
+        type: String!
+        address: UserAddress!
+    }
+
+    input Teacher {
+        schoolID: ID
         schoolName: String
         user: User!
     }
@@ -56,23 +75,30 @@ const typeDefs = gql`
     }
 
     input Student {
-        schoolID: UUID
+        schoolID: ID
         schoolName: String
         user: User!
     }
 
     input School {
-        ID: UUID!
+        ID: ID!
         name: String!
         address: Address!
         manager: User
     }
 
-    input Group {
-        ID: UUID!
+    type UserSchool {
+        ID: ID!
         name: String!
-        teacherID: UUID!
-        schoolID: UUID!
+        address: UserAddress!
+        manager: UserType
+    }
+
+    input Group {
+        ID: ID!
+        name: String!
+        teacherID: ID!
+        schoolID: ID!
     }
 
     input UserLogin {

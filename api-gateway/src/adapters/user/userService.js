@@ -1,5 +1,5 @@
 import got from "got";
-import { apiPostCall } from "../../helpers/APIs/apisCalls";
+import { apiPostCall } from "../../helpers/APIs/apisCalls.js";
 
 // import { RABBITMQ } from "../../helpers/rabbitMQ.js";
 

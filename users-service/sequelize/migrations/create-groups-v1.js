@@ -7,7 +7,7 @@ module.exports.up = (queryInterface,DataTypes) => {
         },
         group_name: {
             allowNull: false,
-            type: DataTypes.String
+            type: DataTypes.STRING
         },
         teacher: {
             allowNull: false,

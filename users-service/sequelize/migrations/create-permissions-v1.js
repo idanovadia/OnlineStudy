@@ -7,7 +7,7 @@ module.exports.up = (queryInterface,DataTypes) => {
         },
         permission_name: {
             allowNull: false,
-            type: DataTypes.String
+            type: DataTypes.STRING
         },
         createdAt: {
             allowNull: false,
