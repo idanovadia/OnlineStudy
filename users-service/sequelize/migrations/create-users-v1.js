@@ -17,10 +17,6 @@ module.exports.up = (queryInterface,DataTypes) => {
             allowNull: false,
             type: DataTypes.STRING
         },
-        addressID: {
-            allowNull: false,
-            type: DataTypes.UUID
-        },
         password:{
             allowNull: false,
             type: DataTypes.CHAR(64)
@@ -36,6 +32,10 @@ module.exports.up = (queryInterface,DataTypes) => {
         type: {
             allowNull: false,
             type: DataTypes.STRING
+        },
+        addressID: {
+            allowNull: false,
+            type: DataTypes.UUID
         },
         createdAt: {
             allowNull: false,
