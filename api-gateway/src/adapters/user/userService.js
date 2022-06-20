@@ -37,7 +37,7 @@ export default class UserService {
         return apiPostCall(
             {
                 url : `${USER_SERVICE_URI}/school`,
-                body: {json: {teacher}}
+                body: {json: {school}}
             }
         );
     }
