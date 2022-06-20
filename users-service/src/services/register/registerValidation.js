@@ -1,4 +1,4 @@
-import { User } from "../../db/models/RegistrationModels.js";
+import { User } from "../../db/models/UserRegistrationModels.js";
 import { Group } from "../../db/models/GroupModels.js";
 
 

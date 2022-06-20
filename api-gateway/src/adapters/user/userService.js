@@ -16,24 +16,24 @@ export default class UserService {
         console.log("call createUser");
         apiPostCall(
             {
-                url : `${USER_SERVICE_URI}/student`,
+                url : `${USER_SERVICE_URI}/register`,
                 body: {json: {user}}
             }
         );
     }
 
     static createTeacher = async(teacher) => {
-        console.log("call createUser");
+        console.log("call createTeacher");
         return await apiPostCall(
             {
-                url : `${USER_SERVICE_URI}/teacher`,
+                url : `${USER_SERVICE_URI}/register/teacher`,
                 body: {json: {teacher}}
             }
         );
     }
 
     static createSchool = async(school) => {
-        console.log("call createUser");
+        console.log("call createSchool");
         return apiPostCall(
             {
                 url : `${USER_SERVICE_URI}/school`,

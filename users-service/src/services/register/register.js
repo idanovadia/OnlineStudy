@@ -1,21 +1,26 @@
 import generateUUID from "../../helpers/generateUUID.js";
-import { User } from "#root/db/models/RegistrationModels";
+import { User } from "#root/db/models/UserRegistrationModels";
+import { Student } from "../../db/models/StudentRegistrationModels.js"
+import { Teacher } from "../../db/models/TeacherRegistrationModels.js"
 import { Address } from "../../db/models/AddressModels.js";
 import {validateUserRegister} from "./registerValidation.js";
 import { createAddress } from "../address/addAddress.js";
 import { createGroup } from "../group/addGroup.js";
 
-export const registerUser = async(user) => {
-    user["id"] = generateUUID();
-    await register(user);
+export const registerStudent = async(user) => {
+    user && registerUser({user : user.user_data});
+    user && saveStudent({student :user.student});
 }
 
-export const registerManager = async(manager) => {
-    var { group, user  } = manager;
-    group["id"] = generateUUID();
-    user["id"] = group["managerID"] = generateUUID();
-    await createGroup(group);
-    await register({...user, groupID: group.id});
+export const registerTeacher = async(user) => {
+    user && registerUser({user : user.user_data});
+    user && saveTeacher({teacher : user.teacher});
+}
+
+
+export const registerUser = async({user}) => {
+    user["id"] = generateUUID();
+    await register(user);
 }
 
 const register = async (user) => {
@@ -31,12 +36,15 @@ const saveUserInfo = async(user) => {
     await saveUser( {...myUser, addressID : addressID });
 }
 
-const saveUser = async(user) => {
-    await save(user);
-    return user.id;
+const saveStudent = async({student}) => {
+    await Student(student);
 }
 
-const save = async(user) => {
+const saveTeacher = async({teacher}) => {
+    await Teacher(teacher);
+}
+
+const saveUser = async(user) => {
     await User.create(user);
 }
 

@@ -1,32 +1,25 @@
 // import { User } from "../db/models/RegistrationModels";
 // import { RABBITMQ } from "../helpers/rabbitMQ.js";
 import login from "../services/login/loginService.js";
-import {registerManager, registerUser} from "../services/register/register.js"
+import { registerStudent, registerTeacher } from "../services/register/register.js"
 import { getUserDetails } from "../services/userDetails/userDetails.js";
 
 // const rabbitMQ = new RABBITMQ();
 
 const setupRoutes = app => {
 
-    app.post("/register", async (req,res,next) => {
-        console.log("route register");
-        console.log(req.body);
-        try {
-            await registerUser(req.body.user);
-            return res.json("User successfully registered").status(201);
-        }catch(err){
-            console.log("error register route : " + err);
-            return res.json(`${err}`).status(500);
-        }
-    });
+    const userTypeRegistrationMap = {
+        "student" : registerStudent,
+        "teacher" : registerTeacher,
+    }
 
-    app.post("/manager/register", async (req,res,next) => {
+    app.post("/register/student", async (req,res,next) => {
         console.log("route register");
         console.log(req.body);
-        const manager = req.body.manager;
+        const user = req.body.user;
         try {
-            await registerManager(manager);
-            return res.json("Manager successfully registered").status(201);
+            await userTypeRegistrationMap[user.type](user);
+            return res.json("User successfully registered").status(201);
         }catch(err){
             console.log("error register route : " + err);
             return res.json(`${err}`).status(500);
