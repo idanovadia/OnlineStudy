@@ -1,4 +1,7 @@
+import { v4 as uuidv4 } from 'uuid';
 
-export const addUUID = (obj) => {
-    return {...obj,id:generateUUID()};
+const generateUUID = () => uuidv4();
+
+export const addUUID = (db_object) => {
+    return {...db_object,id: generateUUID()};
 }

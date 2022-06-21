@@ -36,8 +36,8 @@ export default class UserService {
         console.log("call createSchool");
         return apiPostCall(
             {
-                url : `${USER_SERVICE_URI}/school`,
-                body: {json: {school}}
+                url : `${USER_SERVICE_URI}/register/school`,
+                body: school
             }
         );
     }

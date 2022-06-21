@@ -1,8 +1,10 @@
-import { saveSchool } from "../../../db/orm/school.js";
-import { createError } from "../../../global/erros.js";
+import { findOneSchool, saveSchool } from "../../../db/orm/school.js";
+import { createError } from "../../../global/errors.js";
+import { addUUID } from "../../../global/generate.js";
 
 export const saveASchool = async ({ school }) => {
-  if (isSchoolExist(school.id)) {
+  if (!!(await findOneSchool({ where: { name: school.name } }))) {
+    school = await addUUID(school);
     return await saveSchool(school);
   }
   throw createError({

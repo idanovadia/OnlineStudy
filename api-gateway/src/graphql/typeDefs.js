@@ -79,10 +79,14 @@ const typeDefs = gql`
         user: User!
     }
 
+    input Manager {
+        user: User
+    }
+
     input School {
         name: String!
         address: Address!
-        manager: User
+        manager: Manager
     }
 
     type UserSchool {

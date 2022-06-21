@@ -1,6 +1,6 @@
 import { School } from "../models/SchoolModels.js"
 
-export const isExist = async(schoolID) => {
+export const isExistByID = async(schoolID) => {
     return School.findByPk(schoolID).then(function(school) {
         console.log(school);
         return school;

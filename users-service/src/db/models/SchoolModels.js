@@ -3,15 +3,15 @@ import sequelize from "../connection";
 
 export class School extends Model {}
 School.init({
-    school_name: {
+    name: {
         allowNull: false,
         type: DataTypes.STRING
     },
-    school_address: {
+    address_id: {
         allowNull: false,
-        type: DataTypes.STRING
+        type: DataTypes.UUID
     },
-    manager: {
+    manager_id: {
         allowNull: false,
         type: DataTypes.UUID
     },
