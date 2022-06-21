@@ -1,5 +1,5 @@
 import { Student } from "../../db/models/StudentRegistrationModels.js"
 
-export const saveStudent = async({student}) => {
+export const create = async({student}) => {
     return await Student(student);
 }

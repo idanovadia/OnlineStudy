@@ -1,5 +1,5 @@
-import { saveTeacher } from "../../../db/orm/teachers";
+import { create } from "../../../db/orm/teachers";
 
-export const saveTeacher = ({teacher}) => {
-    return saveTeacher({teacher});
+export const saveTeacher = async({teacher}) => {
+    return await create({teacher});
 }

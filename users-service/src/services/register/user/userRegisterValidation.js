@@ -43,10 +43,6 @@ const isPasswordValid = (password) => {
     throw new Error("Password is not valid");
 }
 
-const isAddressIdExist = (addressID) => {
-    return await findOneAddress({ where: { id: addressID } });
-}
-
 const validateEmail = (email) => {
     if(String(email).toLowerCase().match(emailRegex)) return true;
     throw new Error("Email format is not valid");
