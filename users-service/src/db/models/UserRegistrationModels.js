@@ -15,10 +15,6 @@ User.init({
         allowNull: false,
         type: DataTypes.STRING
     },
-    addressID: {
-        allowNull: false,
-        type: DataTypes.UUID
-    },
     password:{
         allowNull: false,
         type: DataTypes.CHAR(64)
@@ -31,10 +27,14 @@ User.init({
         allowNull: false,
         type: DataTypes.STRING
     },
-    groupID: {
+    type: {
+        allowNull: false,
+        type: DataTypes.STRING
+    },
+    addressID: {
         allowNull: false,
         type: DataTypes.UUID
-    }
+    },
 },{
     modelName: "user",
     sequelize

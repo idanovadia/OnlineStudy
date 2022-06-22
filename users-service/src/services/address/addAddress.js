@@ -1,9 +1,9 @@
 import { Address } from "../../db/models/AddressModels.js";
-import generateUUID from "../../helpers/generateUUID.js";
+import { addUUID } from "../../global/generate.js";
 
 
 export const createAddress = async(address) => {
-    address["id"] = generateUUID();
+    address = addUUID(address);
     await save(address);
     return address.id;
 }

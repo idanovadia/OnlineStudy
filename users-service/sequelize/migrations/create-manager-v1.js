@@ -1,20 +1,8 @@
 module.exports.up = (queryInterface,DataTypes) => {
-    return queryInterface.createTable("schools",{
+    return queryInterface.createTable("managers",{
         id: {
             allowNull: false,
             primaryKey: true,
-            type: DataTypes.UUID
-        },
-        name: {
-            allowNull: false,
-            type: DataTypes.STRING
-        },
-        address_id: {
-            allowNull: false,
-            type: DataTypes.UUID
-        },
-        manager_id: {
-            allowNull: false,
             type: DataTypes.UUID
         },
         createdAt: {
@@ -32,4 +20,4 @@ module.exports.up = (queryInterface,DataTypes) => {
     },{charset:"utf8"})
 }
 
-module.exports.down = queryInterface => queryInterface.dropTable("schools");
+module.exports.down = queryInterface => queryInterface.dropTable("managers");

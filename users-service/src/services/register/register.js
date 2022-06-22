@@ -1,42 +1,36 @@
-import generateUUID from "../../helpers/generateUUID.js";
-import { User } from "#root/db/models/RegistrationModels";
-import { Address } from "../../db/models/AddressModels.js";
-import {validateUserRegister} from "./registerValidation.js";
-import { createAddress } from "../address/addAddress.js";
-import { createGroup } from "../group/addGroup.js";
+import { saveAManager } from "./manager/manager.js";
+import { saveASchool } from "./school/school.js";
+import { School } from "./school/schoolModel.js";
+import { saveStudent } from "./student/student.js";
+import { saveTeacher } from "./teacher/teacher.js";
+import { registerUser } from "./user/userRegister.js";
 
-export const registerUser = async(user) => {
-    user["id"] = generateUUID();
-    await register(user);
-}
-
-export const registerManager = async(manager) => {
-    var { group, user  } = manager;
-    group["id"] = generateUUID();
-    user["id"] = group["managerID"] = generateUUID();
-    await createGroup(group);
-    await register({...user, groupID: group.id});
-}
-
-const register = async (user) => {
-    console.log("service register");
-    const validation = await validateUserRegister(user);
-    if(!validation) throw new Error("validate User Register - Error");
-    await saveUserInfo(user);
+export const registerStudent = async (user) => {
+  user && registerUser({ user: user.user_data });
+  user && saveStudent({ student: user.student });
 };
 
-const saveUserInfo = async(user) => {
-    const { address, ...myUser } = user;
-    const addressID = await createAddress(address);
-    await saveUser( {...myUser, addressID : addressID });
-}
+export const registerTeacher = async (user) => {
+  user && (await registerUser({ user: user.user_data }));
+  user && (await saveTeacher({ teacher: user.teacher }));
+};
 
-const saveUser = async(user) => {
-    await save(user);
-    return user.id;
-}
+export const RegisterManager = async (manager) => {
+  console.log("RegisterManager");
+  const { user } = manager;
+  console.log(user);
+  const savedUser = user && (await registerUser({ user: user }));
+  console.log(savedUser.dataValues.id);
+  savedUser?.dataValues?.id &&
+    (await saveAManager({ id: savedUser.dataValues.id }));
+  return savedUser.dataValues;
+};
 
-const save = async(user) => {
-    await User.create(user);
-}
-
+export const registerSchool = async (school) => {
+  console.log("registerSchool");
+  if (school && school.address) {
+    const manager = await RegisterManager(school.manager);
+    const school_data = new School(school.name, manager.addressID, manager.id);
+    school && (await saveASchool({ school: school_data }));
+  }
+};
