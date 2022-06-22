@@ -3,7 +3,11 @@ import { createError } from "../../../global/errors.js";
 import { addUUID } from "../../../global/generate.js";
 
 export const saveASchool = async ({ school }) => {
-  if (!!(await findOneSchool({ where: { name: school.name } }))) {
+  console.log("saveASchool");
+  console.log(`school ${school}`);
+  const name = school.name;
+  if (!await findOneSchool({ where: { name: name } })) {
+    console.log(`school ${school}`);
     school = await addUUID(school);
     return await saveSchool(school);
   }

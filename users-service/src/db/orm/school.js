@@ -14,9 +14,11 @@ export const saveSchool = async(school) => {
 }
 
 export const findOneSchool = async(conditions) => {
-    return School.findOne(conditions).then(function(school) {
-        console.log(school);
-        return school;
+    console.log("findOneSchool");
+    console.log(conditions);
+    return School.findOne(conditions).then(function(school_result) {
+        console.log(`school ${school_result}`);
+        return school_result;
     }).catch(function(err){
         console.log(err);
     })
