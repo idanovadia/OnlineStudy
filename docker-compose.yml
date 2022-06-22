@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   api-gateway:
     build: "./api-gateway"
@@ -35,18 +35,40 @@ services:
     cap_add:
       - SYS_NICE
 
+  questions-management:
+    build: "./questions-management"
+    depends_on:
+      - mongodb
+      - rabbitmq
+    environment:
+      - DB_URI=mysql://root:password@users-service-db/db?charset=UTF8
+    ports:
+      - 7101:7101
+    volumes:
+      - ./users-service:/opt/app
+
+  mongodb:
+    image: mongo:5.0
+    ports:
+      - 7202:27017
+    volumes:
+      - ~/apps/mongo:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=citizix
+      - MONGO_INITDB_ROOT_PASSWORD=S3cret
+
   rabbitmq:
-    image: 'rabbitmq:3.6-management-alpine'
+    image: "rabbitmq:3.6-management-alpine"
     ports:
       # The standard AMQP protocol port
-      - '5672:5672'
+      - "5672:5672"
       # HTTP management UI
-      - '15672:15672'
+      - "15672:15672"
     environment:
       # The location of the RabbitMQ server.  "amqp" is the protocol;
       # "rabbitmq" is the hostname.  Note that there is not a guarantee
       # that the server will start first!  Telling the pika client library
       # to try multiple times gets around this ordering issue.
-      AMQP_URL: 'amqp://rabbitmq?connection_attempts=5&retry_delay=5'
+      AMQP_URL: "amqp://rabbitmq?connection_attempts=5&retry_delay=5"
       RABBITMQ_DEFAULT_USER: "guest"
       RABBITMQ_DEFAULT_PASS: "guest"
