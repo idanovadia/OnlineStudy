@@ -1,12 +1,13 @@
 
-import accessEnv from "#root/helpers/accessEnv";
-
-const DB_URI = accessEnv("DB_URI");
 const mongoose = require("mongoose");
 
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env;
+const url = `mongodb://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?authSource=admin`;
+console.log(url);
+console.log(process.env);
 mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => console.log("DB Connection Successfull!"))
+  .connect(url)
+  .then(() => console.log("DB Connection Successfully!"))
   .catch((err) => {
     console.log(err);
   });

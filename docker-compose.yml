@@ -3,11 +3,9 @@ services:
   api-gateway:
     build: "./api-gateway"
     depends_on:
-      - payments-service
       - users-service
-      - expenses-service
-      - events-service
       - rabbitmq
+      - questions_management
     ports:
       - 7000:7000
     volumes:
@@ -35,27 +33,31 @@ services:
     cap_add:
       - SYS_NICE
 
-  questions-management:
-    build: "./questions-management"
+  questions_management:
+    build: "./questions_management"
     depends_on:
       - mongodb
       - rabbitmq
     environment:
-      - DB_URI=mysql://root:password@users-service-db/db?charset=UTF8
+      - DB_HOST=mongodb
+      - DB_USER=root
+      - DB_PASSWORD=123456
+      - DB_NAME=questions-management
+      - DB_PORT=27017
     ports:
-      - 7101:7101
+      - 7102:7102
     volumes:
-      - ./users-service:/opt/app
+      - ./questions_management:/opt/app
 
   mongodb:
-    image: mongo:5.0
+    image: mongo:5.0.2
     ports:
       - 7202:27017
     volumes:
-      - ~/apps/mongo:/data/db
+      - ./data:/data/db
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=citizix
-      - MONGO_INITDB_ROOT_PASSWORD=S3cret
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=123456
 
   rabbitmq:
     image: "rabbitmq:3.6-management-alpine"
