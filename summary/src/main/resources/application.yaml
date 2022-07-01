@@ -1,0 +1,8 @@
+rabbitmq:
+  connectionURL: amqp://guest:guest@localhost:5672/
+  publishQueues:
+    - exchange: summary-exchange
+      bindingQueue:
+        - queue: summaryQ
+          routingKey: summary.*
+

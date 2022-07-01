@@ -6,6 +6,7 @@ services:
       - users-service
       - rabbitmq
       - questions_management
+      # - summary
     ports:
       - 7000:7000
     volumes:
@@ -58,6 +59,28 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=123456
+
+  # summary:
+  #   build: "./summary"
+  #   depends_on:
+  #     - summary-db
+  #     - rabbitmq
+  #   environment:
+  #     - DB_URI=mysql://root:password@summary-db/db?charset=UTF8
+  #   ports:
+  #     - 7103:7103
+  #   volumes:
+  #     - ./summary:/opt/app
+
+  # summary-db:
+  #   environment:
+  #     - MYSQL_ROOT_PASSWORD=password
+  #     - MYSQL_DATABASE=db
+  #   image: mysql:8.0
+  #   ports:
+  #     - 0.0.0.0:7203:3306
+  #   cap_add:
+  #     - SYS_NICE
 
   rabbitmq:
     image: "rabbitmq:3.6-management-alpine"
