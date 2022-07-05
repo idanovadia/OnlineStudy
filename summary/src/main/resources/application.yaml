@@ -5,4 +5,5 @@ rabbitmq:
       bindingQueue:
         - queue: summaryQ
           routingKey: summary.*
-
+server:
+  port: 8090

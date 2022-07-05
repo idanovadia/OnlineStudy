@@ -6,7 +6,7 @@ services:
       - users-service
       - rabbitmq
       - questions_management
-      # - summary
+      - summary
     ports:
       - 7000:7000
     volumes:
@@ -51,7 +51,7 @@ services:
       - ./questions_management:/opt/app
 
   mongodb:
-    image: mongo:5.0.2
+    image: mongo
     ports:
       - 7202:27017
     volumes:
@@ -60,27 +60,32 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=123456
 
-  # summary:
-  #   build: "./summary"
-  #   depends_on:
-  #     - summary-db
-  #     - rabbitmq
-  #   environment:
-  #     - DB_URI=mysql://root:password@summary-db/db?charset=UTF8
-  #   ports:
-  #     - 7103:7103
-  #   volumes:
-  #     - ./summary:/opt/app
+  summary:
+    build: "./summary"
+    depends_on:
+      - mongodb_summary
+      - rabbitmq
+    environment:
+      - DB_HOST=mongodb
+      - DB_USER=root
+      - DB_PASSWORD=123456
+      - DB_NAME=questions-management
+      - DB_PORT=27017
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    ports:
+      - 7103:7103
+    volumes:
+      - ./summary:/opt/app
 
-  # summary-db:
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=password
-  #     - MYSQL_DATABASE=db
-  #   image: mysql:8.0
-  #   ports:
-  #     - 0.0.0.0:7203:3306
-  #   cap_add:
-  #     - SYS_NICE
+  mongodb_summary:
+    image: mongo
+    ports:
+      - 7203:27017
+    volumes:
+      - ./data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=123456
 
   rabbitmq:
     image: "rabbitmq:3.6-management-alpine"
