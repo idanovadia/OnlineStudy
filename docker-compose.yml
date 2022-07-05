@@ -69,7 +69,7 @@ services:
       - DB_HOST=mongodb
       - DB_USER=root
       - DB_PASSWORD=123456
-      - DB_NAME=questions-management
+      - DB_NAME=summary-db
       - DB_PORT=27017
       - SPRING_RABBITMQ_HOST=rabbitmq
     ports:

@@ -6,4 +6,11 @@ rabbitmq:
         - queue: summaryQ
           routingKey: summary.*
 server:
-  port: 8090
+  port: 7103
+
+spring:
+  data:
+    mongodb:
+      host: mongodb_summary
+      port: 7203
+      database: summary-db

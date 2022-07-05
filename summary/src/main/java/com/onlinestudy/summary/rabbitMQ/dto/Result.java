@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Result {
 
     private String type;
-    private String assignment_id;
+    private UUID assignment_id;
     private List<Exercise> userAnswers;
     private UUID userID;
     private Date delivered;
