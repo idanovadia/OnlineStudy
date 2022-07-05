@@ -3,15 +3,13 @@ package com.onlinestudy.summary.rabbitMQ.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-public class Message {
+public class Exercise {
 
-    private String content;
-    private String exchange;
-    private String routingKey;
+    private String question;
+    private String answer;
+    private String user_answer;
 }
