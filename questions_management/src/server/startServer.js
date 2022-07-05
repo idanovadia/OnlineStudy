@@ -9,7 +9,7 @@ import setupRoutes from "./routes";
 const dotenv = require("dotenv");
 dotenv.config();
 
-const PORT = accessEnv("PORT",7101);
+const PORT = accessEnv("PORT",7102);
 
 const app = express();
 
