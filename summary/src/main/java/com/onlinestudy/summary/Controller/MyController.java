@@ -39,7 +39,7 @@ public class MyController {
     public ResponseEntity<?> getMyServiceMessage() {
         try {
             List<Exercise> exercises = new ArrayList<>();
-            Result result = new Result("ss", "ss", exercises, UUID.randomUUID(), new Date());
+            Result result = new Result("ss", UUID.randomUUID(), exercises, UUID.randomUUID(), new Date());
             template.convertAndSend(MessagingConfig.EXCHANGE, MessagingConfig.ROUTING_KEY, result);
             return new ResponseEntity<>(this.myService.getBook(), HttpStatus.OK);
         } catch (Exception e) {
